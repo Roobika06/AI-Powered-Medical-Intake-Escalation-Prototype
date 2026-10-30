@@ -51,95 +51,208 @@ if not current_records:
     current_records = get_all_submissions()
 
 # Custom CSS for clean healthcare UI with background image & larger comfortable typography
+# Custom CSS for high-contrast, crystal-clear healthcare UI
 st.markdown("""
 <style>
-    /* Global Base Font Size Scale */
+    /* Global Base Font Size Scale & Colors */
     html, body, [class*="css"] {
-        font-size: 16.5px;
+        font-size: 16px;
         font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     }
 
-    /* Ambient background styling */
+    /* Clean, bright, professional healthcare background */
     .stApp {
-        background-image: linear-gradient(rgba(11, 17, 32, 0.88), rgba(15, 23, 42, 0.94)), url('/assets/ai_automation_img/woman-typing-on-laptop-office-260nw-2267871941_d4a823c3.webp');
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: center;
+        background-color: #F8FAFC !important;
+        background-image: none !important;
+        color: #0F172A !important;
     }
 
+    /* Sidebar Clean Styling */
+    section[data-testid="stSidebar"] {
+        background-color: #FFFFFF !important;
+        border-right: 1px solid #E2E8F0 !important;
+    }
+    section[data-testid="stSidebar"] * {
+        color: #0F172A !important;
+    }
+
+    /* Main Typography - Deep Navy/Slate for maximum readability */
     .main-header {
         font-size: 2.35rem;
-        font-weight: 700;
-        color: #FFFFFF;
+        font-weight: 800;
+        color: #0F172A !important;
         margin-bottom: 0.35rem;
         letter-spacing: -0.02em;
     }
     .sub-header {
         font-size: 1.15rem;
-        color: #94A3B8;
+        color: #334155 !important;
+        font-weight: 500;
         margin-bottom: 1.5rem;
     }
+    h1, h2, h3, h4, h5, h6, .stMarkdown, p, span, label, div[data-testid="stMarkdownContainer"] p {
+        color: #0F172A !important;
+    }
+    .stCaption, caption, p[data-testid="stCaption"] {
+        color: #475569 !important;
+        font-size: 0.95rem !important;
+        font-weight: 500 !important;
+    }
+
+    /* Tab headers high contrast styling */
+    button[data-baseweb="tab"] {
+        color: #334155 !important;
+        font-weight: 600 !important;
+        font-size: 1.05rem !important;
+        padding-top: 0.6rem !important;
+        padding-bottom: 0.6rem !important;
+    }
+    button[data-baseweb="tab"][aria-selected="true"] {
+        color: #0D9488 !important;
+        border-bottom: 3px solid #0D9488 !important;
+        font-weight: 700 !important;
+    }
+
+    /* Metric counter cards */
+    div[data-testid="stMetric"] {
+        background-color: #FFFFFF !important;
+        border: 1.5px solid #E2E8F0 !important;
+        border-radius: 12px !important;
+        padding: 1rem 1.25rem !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    }
+    div[data-testid="stMetricValue"] {
+        color: #0F172A !important;
+        font-weight: 800 !important;
+        font-size: 2rem !important;
+    }
+    div[data-testid="stMetricLabel"] {
+        color: #334155 !important;
+        font-weight: 600 !important;
+        font-size: 0.95rem !important;
+    }
+
+    /* Form Inputs & Textareas */
+    div[data-baseweb="input"] input, div[data-baseweb="textarea"] textarea {
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        border: 1.5px solid #CBD5E1 !important;
+        border-radius: 8px !important;
+        font-size: 1.05rem !important;
+        font-weight: 500 !important;
+    }
+    div[data-baseweb="input"] input:focus, div[data-baseweb="textarea"] textarea:focus {
+        border-color: #0D9488 !important;
+        box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2) !important;
+    }
+    div[data-baseweb="select"] > div {
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        border: 1.5px solid #CBD5E1 !important;
+        border-radius: 8px !important;
+    }
+
+    /* Safety banner */
     .safety-banner {
-        background-color: rgba(254, 243, 199, 0.95);
-        border: 1px solid rgba(245, 158, 11, 0.4);
+        background-color: #FFFBEB !important;
+        border: 2px solid #F59E0B !important;
         padding: 1.1rem 1.4rem;
         border-radius: 12px;
         margin-bottom: 1.8rem;
-        font-size: 1.05rem;
-        color: #78350F;
+        font-size: 1.02rem;
+        color: #92400E !important;
         line-height: 1.55;
+        box-shadow: 0 1px 3px rgba(245, 158, 11, 0.1);
     }
+    .safety-banner strong {
+        color: #78350F !important;
+    }
+
+    /* Triage Cards */
     .priority-card {
-        background-color: rgba(254, 242, 242, 0.95);
-        border: 1px solid #F87171;
+        background-color: #FEF2F2 !important;
+        border: 2px solid #EF4444 !important;
         border-radius: 12px;
         padding: 1.3rem;
         margin-top: 1rem;
+        color: #991B1B !important;
+    }
+    .priority-card * {
+        color: #991B1B !important;
     }
     .routine-card {
-        background-color: rgba(240, 253, 244, 0.95);
-        border: 1px solid #4ADE80;
+        background-color: #F0FDF4 !important;
+        border: 2px solid #22C55E !important;
         border-radius: 12px;
         padding: 1.3rem;
         margin-top: 1rem;
+        color: #166534 !important;
+    }
+    .routine-card * {
+        color: #166534 !important;
     }
     .general-card {
-        background-color: rgba(255, 251, 235, 0.95);
-        border: 1px solid #FCD34D;
+        background-color: #FFFBEB !important;
+        border: 2px solid #F59E0B !important;
         border-radius: 12px;
         padding: 1.3rem;
         margin-top: 1rem;
+        color: #92400E !important;
     }
+    .general-card * {
+        color: #92400E !important;
+    }
+
+    /* Notification Simulation Preview Boxes */
     .slack-box {
-        background-color: #0F172A;
-        color: #F8FAFC;
+        background-color: #0F172A !important;
+        color: #F8FAFC !important;
         padding: 1.3rem;
         border-radius: 12px;
-        font-family: monospace;
-        font-size: 1rem;
-        border: 1px solid #334155;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.95rem;
+        border: 1px solid #334155 !important;
     }
     .sms-box {
-        background-color: #020617;
-        color: #F8FAFC;
+        background-color: #090D16 !important;
+        color: #38BDF8 !important;
         padding: 1.3rem;
         border-radius: 12px;
-        font-family: monospace;
-        font-size: 1rem;
-        border: 1px solid #1E293B;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.95rem;
+        border: 1px solid #1E293B !important;
     }
     .email-box {
-        background-color: #FFFFFF;
-        color: #1E293B;
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
         padding: 1.5rem;
         border-radius: 12px;
-        border: 1px solid #CBD5E1;
-        font-size: 1.05rem;
+        border: 1.5px solid #CBD5E1 !important;
+        font-size: 1.02rem;
         line-height: 1.6;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
-    /* Larger form inputs */
-    div[data-baseweb="input"] input, div[data-baseweb="textarea"] textarea {
-        font-size: 1.05rem !important;
+
+    /* Badges */
+    .status-badge-ai {
+        background-color: #DCFCE7 !important;
+        color: #166534 !important;
+        font-weight: 700 !important;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        font-size: 0.85rem;
+        border: 1px solid #86EFAC !important;
+        display: inline-block;
+    }
+    .status-badge-fallback {
+        background-color: #FEF3C7 !important;
+        color: #92400E !important;
+        font-weight: 700 !important;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        font-size: 0.85rem;
+        border: 1px solid #FCD34D !important;
+        display: inline-block;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -173,7 +286,7 @@ with st.sidebar:
 
 # Main Page Header
 st.markdown('<div class="main-header">🏥 Medical Intake & Escalation</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">Healthcare Automation & Safety Routing • Author: Roobika (@Roobika06)</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">Healthcare Automation & Safety Routing • Author: roobika (@roobika06)</div>', unsafe_allow_html=True)
 
 # Mandatory Safety Disclaimer Banner
 st.markdown("""
@@ -609,3 +722,4 @@ with tab_settings:
                                                    └── (Staff Clarification Ticket & Slack Post)
     ```
     """)
+
