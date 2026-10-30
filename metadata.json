@@ -1,0 +1,6 @@
+{
+  "name": "AI-Powered Medical Intake & Escalation Prototype",
+  "description": "Educational healthcare workflow automation prototype with intelligent intake triage, routing, and simulated notifications.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
